@@ -33,7 +33,7 @@ namespace DependencyInjectionContainerLib
             return container;
         }
 
-        private Type CreateGenericType(Type TDependency)
+        private Type CreateGenericType(Type TDependency, int numOfImplentation)
         {
             var t = TDependency.GetGenericTypeDefinition();
             if (_dependensies.ContainsKey(t))
@@ -43,7 +43,10 @@ namespace DependencyInjectionContainerLib
                 return targetType.MakeGenericType(TDependency.GetGenericArguments().First());
             }
             else
-                throw new ArgumentException("Dependensies don't contains GenericType");
+            {
+                implementation = _dependensies[TDependency][numOfImplentation];
+                return implementation.TImplementation;
+            }
         }
         private object CreateInstanse(Type targetType)
         {
@@ -89,7 +92,7 @@ namespace DependencyInjectionContainerLib
             Type targetType;
             if (TDependency.GetGenericArguments().Length != 0)
             {
-                targetType = CreateGenericType(TDependency);
+                targetType = CreateGenericType(TDependency, numOfImplentation);
             }
             else
             {

@@ -278,7 +278,7 @@ namespace DependencyInjectionContainer.Tests
         [Test]
         public void TestSelectImplementation()
         {
-            var actual = provider.Resolve<Dep>(1);
+            var actual = provider.Resolve<IDep>(1);
 
             var expected = new SecondDep();
 
@@ -288,9 +288,9 @@ namespace DependencyInjectionContainer.Tests
         [Test]
         public void TestInstance()
         {
-            var actual = provider.Resolve<Dep>(3);
+            var actual = provider.Resolve<IDep>(3);
 
-            var expected = provider.Resolve<Dep>(3);
+            var expected = provider.Resolve<IDep>(3);
 
             Assert.AreNotEqual(actual, expected);
         }
